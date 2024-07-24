@@ -2,6 +2,8 @@ const prompt = require("prompt-sync")();
 
 const jogos = []
 
+const validar_indice = (indice) => indice >= 0 && indice < jogos.length
+
 const modelo = () => {
     const nome = prompt("Nome do jogo: ")
     const ano_lancamento = prompt("Ano de lançamento: ")
@@ -20,7 +22,8 @@ const modelo = () => {
         estudio != "" &&
         ((sequencia >= 0 && sequencia < jogos.length) || jogos.length == 0)
     ){
-        returnnome,
+        return
+        nome,
         ano_lancamento,
         duracao,
         preco,
@@ -64,11 +67,11 @@ const atualizar = () => {
         return
     }
 
-    const indice = prompt("Qual indice deseja atualizar")
+    const indice = prompt("Qual indice deseja atualizar") -1;
     const jogo = modelo()
     if(
         jogo!= undefined &&
-        indice >= 0 && indice < jogos.length 
+        validar_indice(indice)
     ){
         jogos[indice] = jogo
         console.log("Atualizado com sucesso")
@@ -76,4 +79,27 @@ const atualizar = () => {
         console.log("Indice inválido")
     }
 
+}
+
+const remover = () => {
+    if(!listar()){
+        return
+    }
+
+    const indice = prompt("Qual indice você deseja remover?")
+
+    if(validar_indice(indice)){
+        jogos.splice(indice, 1)
+        console.log("Removido")
+    }else{
+        console.log("Falha ao remover  ")
+    }
+
+}
+
+modules.exports = {
+    criar,
+    listar,
+    atualizar,
+    remover
 }
